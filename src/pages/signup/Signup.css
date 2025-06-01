@@ -1,9 +1,51 @@
-.signup-container{
-    
+.my-custom-modal {
+  border-radius: 10px;
+  padding: 20px;
+  animation: slideDown 0.4s ease;
 }
 
-.signup-form {
-  width: 222px;
-  height: auto;
-  background: #ff0000;
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.my-confirm-btn {
+  background-color: #009dff !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  border-radius: 6px;
+}
+
+.my-confirm-btn:hover {
+  background-color: #007acc !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 157, 255, 0.4);
+}
+
+.my-cancel-btn {
+  background-color: #ea0000 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  border-radius: 6px;
+}
+
+.my-cancel-btn:hover {
+  background-color: #c60000 !important;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(234, 0, 0, 0.4);
+}
+
+.ant-form-item-required::before {
+  content: "🔸" !important;
+  color: #ff2600;
+  font-size: 16px;
+  margin-right: 5px;
 }
