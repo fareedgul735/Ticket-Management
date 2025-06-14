@@ -47,7 +47,8 @@
   color: white;
 }
 
-.form-content {
+.signup-form-content,
+.login-form-content {
   text-align: left;
 }
 

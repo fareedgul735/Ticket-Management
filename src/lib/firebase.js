@@ -3,12 +3,16 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import {
   getFirestore,
   collection,
-  addDoc
+  addDoc,
+  getDocs,
+  query,
+  where
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -30,58 +34,62 @@ export {
   auth,
   collection,
   addDoc,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getDocs,
+  query,
+  where
 }
 
-            // <Form className="login-container">
-            //   <div className="btn-toggle">
-            //     <button>Login</button>
-            //     <button>Signup</button>
-            //   </div>
-            //   <Row gutter={6}>
-            //     <Col sm={24} md={12} offset={12}>
-            //       <Form.Item
-            //         label="Email"
-            //         name={"email"}
-            //         colon={false}
-            //         rules={[
-            //           {
-            //             required: true,
-            //             whitespace: true,
-            //           },
-            //         ]}
-            //       >
-            //         <Input type="email" placeholder="Enter the Email Address" />
-            //       </Form.Item>
-            //     </Col>
-            //     <Col sm={24} md={12} offset={12}>
-            //       <Form.Item
-            //         label="Password"
-            //         name={"password"}
-            //         colon={false}
-            //         rules={[
-            //           {
-            //             required: true,
-            //             whitespace: true,
-            //           },
-            //           {
-            //             pattern: PASSWORD_PATTERN,
-            //             message:
-            //               "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
-            //           },
-            //         ]}
-            //       >
-            //         <Input type="password" placeholder="Enter the Password" />
-            //       </Form.Item>
-            //     </Col>
-            //     <Col sm={24} md={12} offset={12}>
-            //       <Form.Item
-            //         style={{ textAlign: "right" }}
-            //       >
-            //         <Button type="primary" htmlType="submit">
-            //           Login
-            //         </Button>
-            //       </Form.Item>
-            //     </Col>
-            //   </Row>
-            // </Form>
+// <Form className="login-container">
+//   <div className="btn-toggle">
+//     <button>Login</button>
+//     <button>Signup</button>
+//   </div>
+//   <Row gutter={6}>
+//     <Col sm={24} md={12} offset={12}>
+//       <Form.Item
+//         label="Email"
+//         name={"email"}
+//         colon={false}
+//         rules={[
+//           {
+//             required: true,
+//             whitespace: true,
+//           },
+//         ]}
+//       >
+//         <Input type="email" placeholder="Enter the Email Address" />
+//       </Form.Item>
+//     </Col>
+//     <Col sm={24} md={12} offset={12}>
+//       <Form.Item
+//         label="Password"
+//         name={"password"}
+//         colon={false}
+//         rules={[
+//           {
+//             required: true,
+//             whitespace: true,
+//           },
+//           {
+//             pattern: PASSWORD_PATTERN,
+//             message:
+//               "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
+//           },
+//         ]}
+//       >
+//         <Input type="password" placeholder="Enter the Password" />
+//       </Form.Item>
+//     </Col>
+//     <Col sm={24} md={12} offset={12}>
+//       <Form.Item
+//         style={{ textAlign: "right" }}
+//       >
+//         <Button type="primary" htmlType="submit">
+//           Login
+//         </Button>
+//       </Form.Item>
+//     </Col>
+//   </Row>
+// </Form>

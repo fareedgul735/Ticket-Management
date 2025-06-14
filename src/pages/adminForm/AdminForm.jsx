@@ -1,6 +1,6 @@
 import { Button, Form, Input } from "antd";
-import "./Signup.css";
-import { PASSWORD_PATTERN } from "../../lib/regex";
+import "./Admin.css";
+import { PAKISTAN_CNIC_PATTERN, PASSWORD_PATTERN } from "../../lib/regex.js";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -11,13 +11,14 @@ import {
   collection,
   addDoc,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "../../lib/firebase.js";
 import { DB_COLLECTION } from "../../lib/constant.js";
 import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa";
 
-const Signup = () => {
-  const [toggle, setToggle] = useState(false);
+const AdminForm = () => {
+  const [toggles, setToggle] = useState(false);
   const navigate = useNavigate();
 
   const saveUserDetails = async (userDetails, userId) => {
@@ -50,7 +51,7 @@ const Signup = () => {
     return response.isConfirmed;
   };
 
-  const onDataSuccessfully = async (data) => {
+  const onSignupDataSuccessfully = async (data) => {
     const { email, password, confirmPassword, ...userDetails } = data;
     try {
       const isUserConfirmed = await userConfirmation();
@@ -73,21 +74,41 @@ const Signup = () => {
     }
   };
 
+  const onLoginDataSuccessfully = async ({ email, password }) => {
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("userId", response.user.uid)
+      navigate("/dashboard");
+      return response;
+    } catch (err) {
+      await Swal.fire({
+        text: "Please Correct the Email & Password",
+        background: "#000",
+        color: "#fff",
+        position: "center",
+        width: "370px",
+        customClass: {
+          confirmButton: "my-confirm-btn",
+        },
+      });
+    }
+  }
+
   return (
     <div className="form-wrapper">
       <div className="validation-image">
         <img src={image} alt="validation-image" />
       </div>
       <div className="form-card">
-        <h2>{toggle ? "Signup Form" : "Login Form"}</h2>
+        <h2>{toggles ? "Signup Form" : "Login Form"}</h2>
         <div className="form-toggle">
-          <button className={!toggle ? "active" : ""} onClick={() => setToggle(false)}> Login</button>
-          <button className={toggle ? "active" : ""} onClick={() => setToggle(true)}>
+          <button className={!toggles ? "active" : ""} onClick={() => setToggle(false)}> Login</button>
+          <button className={toggles ? "active" : ""} onClick={() => setToggle(true)}>
             Signup</button>
         </div>
 
-        {toggle ? (
-          <Form className="form-content" onFinish={onDataSuccessfully}>
+        {toggles ? (
+          <Form className="signup-form-content" onFinish={onSignupDataSuccessfully}>
             <Form.Item
               name="fullname"
               rules={[{ required: true, message: "Please enter your fullname" }]}
@@ -137,9 +158,10 @@ const Signup = () => {
               name="cnic_number"
               rules={[
                 { required: true, message: "Please enter your cnic number" },
+                { pattern: PAKISTAN_CNIC_PATTERN, message: "Please Enter a Valid Cnic" }
               ]}
             >
-              <Input type="number" placeholder="CnicNumber" />
+              <Input placeholder="CnicNumber" />
             </Form.Item>
 
             <Button type="none" htmlType="submit" className="signup-btn">
@@ -148,7 +170,7 @@ const Signup = () => {
             </Button>
           </Form>
         ) : (
-          <Form className="form-content">
+          <Form className="login-form-content" onFinish={onLoginDataSuccessfully}>
             <Form.Item
               name="email"
               rules={[{ required: true, message: "Please enter your email" }]}
@@ -176,4 +198,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AdminForm;
