@@ -65,7 +65,7 @@ const User = () => {
           Add Users
         </Button>
       </Link>
-      <Table columns={columns} dataSource={datasource} pagination={[{ position: "bottomCenter", pageSize: 5 }]} />
+      <Table columns={columns} dataSource={datasource} pagination={{ position: ["bottomCenter"], pageSize: 10 }} />
     </div>
 
   )

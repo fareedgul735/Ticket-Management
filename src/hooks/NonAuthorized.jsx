@@ -5,7 +5,7 @@ const useNonAuthorized = () => {
     const navigate = useNavigate()
     const userId = localStorage.getItem("userId");
     useEffect(() => {
-        if (!userId) navigate("/admin/form")
+        if (!userId) navigate("/login")
     }, [])
 
 }

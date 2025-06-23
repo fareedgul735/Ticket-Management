@@ -83,7 +83,7 @@ const UserForm = () => {
         fetchOrganizationData()
     }, [])
     return (
-        <div className="wrapper">
+        <div className="user-form-wrapper">
             <Form className="form-container" onFinish={onUserDataSuccessfully}>
                 <Form.Item label={"Fullname"} name={"fullname"} rules={[
                     { required: true }

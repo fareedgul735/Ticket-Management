@@ -1,24 +1,20 @@
 import { Button, Form, Input } from "antd";
-import "./Admin.css";
+import "./signup.css";
 import { PAKISTAN_CNIC_PATTERN, PASSWORD_PATTERN } from "../../lib/regex.js";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import { useState } from "react";
-import image from "../../assets/signup.png"
+import image from "../../assets/signup.png";
 import {
   auth,
   db,
   collection,
   addDoc,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
 } from "../../lib/firebase.js";
 import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.js";
-import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa";
 
-const AdminForm = () => {
-  const [toggles, setToggle] = useState(false);
+const Signup = () => {
   const navigate = useNavigate();
 
   const saveUserDetails = async (userDetails, userId) => {
@@ -74,128 +70,75 @@ const AdminForm = () => {
     }
   };
 
-  const onLoginDataSuccessfully = async ({ email, password }) => {
-    try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("userId", response.user.uid)
-      navigate("/dashboard");
-      return response;
-    } catch (err) {
-      await Swal.fire({
-        text: "Please Correct the Email & Password",
-        background: "#000",
-        color: "#fff",
-        position: "center",
-        width: "370px",
-        customClass: {
-          confirmButton: "my-confirm-btn",
-        },
-      });
-    }
-  }
-
   return (
-    <div className="form-wrapper">
-      <div className="validation-image">
-        <img src={image} alt="validation-image" />
-      </div>
-      <div className="form-card">
-        <h2>{toggles ? "Signup Form" : "Login Form"}</h2>
-        <div className="form-toggle">
-          <button className={!toggles ? "active" : ""} onClick={() => setToggle(false)}> Login</button>
-          <button className={toggles ? "active" : ""} onClick={() => setToggle(true)}>
-            Signup</button>
+    <div className="wrapper">
+      <div className="signup-container">
+        <div className="signup-image-side">
+          <img src={image} alt="signup" />
         </div>
-
-        {toggles ? (
-          <Form className="signup-form-content" onFinish={onSignupDataSuccessfully}>
+        <div className="signup-form-side">
+          <h2 className="signup-title">Create an Account</h2>
+          <p className="signup-subtitle">Join us to manage your tickets smartly</p>
+          <Form className="signup-form-content" onFinish={onSignupDataSuccessfully} layout="vertical">
             <Form.Item
               name="fullname"
+              label="Full Name"
               rules={[{ required: true, message: "Please enter your fullname" }]}
-
             >
-              <Input placeholder="FullName" />
+              <Input placeholder="John Doe" className="signup-input" />
             </Form.Item>
             <Form.Item
               name="username"
+              label="Username"
               rules={[{ required: true, message: "Please enter your username" }]}
-
             >
-              <Input placeholder="UserName" />
+              <Input placeholder="john123" className="signup-input" />
             </Form.Item>
-
             <Form.Item
               name="email"
+              label="Email"
               rules={[{ required: true, message: "Please enter your email" }]}
             >
-              <Input placeholder="Email Address" />
+              <Input placeholder="john@example.com" className="signup-input" />
             </Form.Item>
-
             <Form.Item
               name="password"
+              label="Password"
               rules={[
                 { required: true, message: "Please enter your password" },
                 {
                   pattern: PASSWORD_PATTERN,
-                  message:
-                    "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
+                  message: "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
                 },
               ]}
             >
-              <Input.Password placeholder="Password" />
+              <Input.Password placeholder="••••••••" className="signup-input" />
             </Form.Item>
-
             <Form.Item
               name="phone_number"
-              rules={[
-                { required: true, message: "Please enter your phone number" },
-              ]}
+              label="Phone Number"
+              rules={[{ required: true, message: "Please enter your phone number" }]}
             >
-              <Input type="number" placeholder="PhoneNumber" />
+              <Input type="number" placeholder="03XXXXXXXXX" className="signup-input" />
             </Form.Item>
-
             <Form.Item
               name="cnic_number"
+              label="CNIC Number"
               rules={[
-                { required: true, message: "Please enter your cnic number" },
-                { pattern: PAKISTAN_CNIC_PATTERN, message: "Please Enter a Valid Cnic" }
+                { required: true, message: "Please enter your CNIC number" },
+                { pattern: PAKISTAN_CNIC_PATTERN, message: "Please enter a valid CNIC" },
               ]}
             >
-              <Input placeholder="CnicNumber" />
+              <Input placeholder="XXXXX-XXXXXXX-X" className="signup-input" />
             </Form.Item>
-
-            <Button type="none" htmlType="submit" className="signup-btn">
-              <FaUserPlus />
-              Signup
+            <Button type="primary" htmlType="submit" className="signup-btn">
+              <FaUserPlus className="signup-icon" /> Signup
             </Button>
           </Form>
-        ) : (
-          <Form className="login-form-content" onFinish={onLoginDataSuccessfully}>
-            <Form.Item
-              name="email"
-              rules={[{ required: true, message: "Please enter your email" }]}
-            >
-              <Input placeholder="Email Address" />
-            </Form.Item>
-
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: "Please enter your password" },
-              ]}
-            >
-              <Input.Password placeholder="Password" />
-            </Form.Item>
-
-            <Button type="none" htmlType="submit" className="login-btn">
-              <FiLogIn />
-              Login
-            </Button>
-          </Form>
-        )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default AdminForm;
+export default Signup;
