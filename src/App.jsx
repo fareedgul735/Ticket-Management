@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Organization from "./pages/orgnaization/Organization";
 import OrganizationForm from "./pages/orgnaization/OrganizationForm";

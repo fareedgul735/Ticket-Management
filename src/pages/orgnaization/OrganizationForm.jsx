@@ -43,7 +43,7 @@ const OrganizationForm = () => {
 
   return (
     <div>
-      <div className="wrapper">
+      <div className="form-wrapper">
         <Form className="form-container" onFinish={onDataSuccessfully}>
           <Form.Item label={"Name"} name={"name"} rules={[
             {

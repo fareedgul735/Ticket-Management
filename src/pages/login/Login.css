@@ -1,20 +1,19 @@
-.wrapper {
+.login-wrapper {
+    width: 100%;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    background: linear-gradient(135deg, #1d1f27, #3e4451);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 60%;
     padding: 2.5rem;
     width: 100%;
     max-width: 420px;
     border-radius: 1.2rem;
     backdrop-filter: blur(12px);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     color: #ffffff;
     animation: fadeInUp 0.6s ease-in-out;
 }
@@ -80,4 +79,9 @@
 
 .login-icon {
     font-size: 1.2rem;
+}
+
+.right-side-design {
+    width: 40%;
+
 }
