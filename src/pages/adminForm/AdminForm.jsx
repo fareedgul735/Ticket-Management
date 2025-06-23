@@ -13,7 +13,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "../../lib/firebase.js";
-import { DB_COLLECTION } from "../../lib/constant.js";
+import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.js";
 import { FiLogIn } from "react-icons/fi";
 import { FaUserPlus } from "react-icons/fa";
 
@@ -52,12 +52,12 @@ const AdminForm = () => {
   };
 
   const onSignupDataSuccessfully = async (data) => {
-    const { email, password, confirmPassword, ...userDetails } = data;
+    const { email, password, ...userDetails } = data;
     try {
       const isUserConfirmed = await userConfirmation();
       if (isUserConfirmed) {
         const userId = await saveUserAndGetId(email, password);
-        await saveUserDetails(userDetails, userId);
+        await saveUserDetails(userDetails, USER_ROLES.ADMIN, userId);
         navigate("/dashboard");
       }
     } catch (err) {
