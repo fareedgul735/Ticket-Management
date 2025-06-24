@@ -6,7 +6,6 @@ import { collection, db, getDocs, query, where } from "../../lib/firebase";
 import { DB_COLLECTION } from "../../lib/constant";
 import Swal from "sweetalert2";
 const Organization = () => {
-
     const [dataSource, setDataSource] = useState([]);
 
     const columns = [
