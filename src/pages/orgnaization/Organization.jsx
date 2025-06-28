@@ -30,16 +30,22 @@ const Organization = () => {
 
                 }
                 return (
-                    <div className="actions-btn">
-                        <Button>
-                            <DeleteOutlined onClick={onDelete} />
-                        </Button>
-                        <Button>
-                            <EditOutlined onClick={onEdit} />
-                        </Button>
-                        <Button>
-                            <EyeOutlined onClick={onView} />
-                        </Button>
+                    <div className="actions-btn" style={{ display: "flex" }}>
+                        <div className="deleted" onClick={onDelete}>
+                            <Button>
+                                <DeleteOutlined />
+                            </Button>
+                        </div>
+                        <div className="edit" onClick={onEdit}>
+                            <Button>
+                                <EditOutlined />
+                            </Button>
+                        </div>
+                        <div className="view" onClick={onView}>
+                            <Button>
+                                <EyeOutlined />
+                            </Button>
+                        </div>
                     </div>
 
                 )

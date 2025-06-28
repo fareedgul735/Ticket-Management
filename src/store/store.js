@@ -5,6 +5,9 @@ import {
 import {
     userReducer
 } from "./slices/user";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/es/persistReducer";
+import persistStore from "redux-persist/lib/persistStore";
 
 
 export const rootReducer = combineReducers({
@@ -12,6 +15,18 @@ export const rootReducer = combineReducers({
     ticket: userReducer
 })
 
+const persistConfig = {
+    key: "userId",
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+
 export const store = configureStore({
-    reducer: rootReducer
+    reducer: persistedReducer
 })
+
+export const persist = persistStore(store)
+
+export default store;

@@ -10,8 +10,8 @@ const UserForm = () => {
     const navigate = useNavigate();
     const [organization, setOrganization] = useState([]);
 
-    const saveUserDetails = async (userId, userDetails) => {
-        const payload = { userId, ...userDetails }
+    const saveUserDetails = async (employeeId, userDetails) => {
+        const payload = { employeeId, ...userDetails }
         const collectionRef = collection(db, DB_COLLECTION.USERS);
         const docRef = await addDoc(collectionRef, payload);
         return docRef
@@ -33,11 +33,11 @@ const UserForm = () => {
     const onUserDataSuccessfully = async (data) => {
         const { email, password, ...userDetails } = data;
         try {
-            const createdBy = localStorage.getItem("userId");
+            const createdBy = localStorage.getItem("employeeId");
             const confirmation = await userConfirmation();
             if (confirmation) {
-                const userId = await saveUserAndGetId(email, password);
-                const userDetailsSave = await saveUserDetails(userId, {
+                const employeeId = await saveUserAndGetId(email, password);
+                const userDetailsSave = await saveUserDetails(employeeId, {
                     ...userDetails,
                     createdBy,
                     role: USER_ROLES.EMPLOYEE,

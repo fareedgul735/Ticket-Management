@@ -15,8 +15,8 @@ import { FaUserPlus } from "react-icons/fa";
 const Signup = () => {
   const navigate = useNavigate();
 
-  const saveUserDetails = async (userDetails, userId) => {
-    const userDetailPayload = { userId, ...userDetails };
+  const saveUserDetails = async (userDetails, adminId) => {
+    const userDetailPayload = { adminId, ...userDetails };
     const collectionReference = collection(db, DB_COLLECTION.USERS);
     await addDoc(collectionReference, userDetailPayload);
   };
@@ -50,11 +50,12 @@ const Signup = () => {
     try {
       const isUserConfirmed = await userConfirmation();
       if (isUserConfirmed) {
-        const userId = await saveUserAndGetId(email, password);
-        await saveUserDetails({ ...userDetails, role: USER_ROLES.ADMIN }, userId);
+        const adminId = await saveUserAndGetId(email, password);
+        await saveUserDetails({ ...userDetails, role: USER_ROLES.ADMIN }, adminId);
         navigate("/dashboard");
       }
     } catch (err) {
+      console.log(err)
       await Swal.fire({
         text: "Internal Server Error!",
         background: "#000",
@@ -77,14 +78,14 @@ const Signup = () => {
           <Form.Item
             name="fullname"
             label="Full Name"
-            rules={[{ required: true, message: "Please enter your fullname" }]}
+            rules={[{ required: true, message: "Please enter your fullname", min: 3 }]}
           >
             <Input placeholder="John Doe" className="signup-input" />
           </Form.Item>
           <Form.Item
             name="username"
             label="Username"
-            rules={[{ required: true, message: "Please enter your username" }]}
+            rules={[{ required: true, message: "Please enter your username", min: 3 }]}
           >
             <Input placeholder="john123" className="signup-input" />
           </Form.Item>
@@ -111,7 +112,7 @@ const Signup = () => {
           <Form.Item
             name="phone_number"
             label="Phone Number"
-            rules={[{ required: true, message: "Please enter your phone number" }]}
+            rules={[{ required: true, message: "Please enter your phone number", min: 11 }]}
           >
             <Input type="number" placeholder="03XXXXXXXXX" className="signup-input" />
           </Form.Item>
@@ -120,7 +121,7 @@ const Signup = () => {
             label="CNIC Number"
             rules={[
               { required: true, message: "Please enter your CNIC number" },
-              { pattern: PAKISTAN_CNIC_PATTERN, message: "Please enter a valid CNIC" },
+              { pattern: PAKISTAN_CNIC_PATTERN, message: "Please enter a valid CNIC", min: 13 },
             ]}
           >
             <Input placeholder="XXXXX-XXXXXXX-X" className="signup-input" />

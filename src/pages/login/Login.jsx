@@ -8,8 +8,6 @@ import { loginUser } from '../../store/slices/user';
 import { FaArrowRight } from 'react-icons/fa';
 
 const Login = () => {
-    const { userId } = useSelector((state) => state.user);
-    console.log(userId, "userId")
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
