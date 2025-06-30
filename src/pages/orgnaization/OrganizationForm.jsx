@@ -24,7 +24,8 @@ const OrganizationForm = () => {
   }
 
   const onDataSuccessfully = async (data) => {
-    const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId");
+    console.log(userId)
     try {
 
       const isUserConfirmed = await getUserConfirmation();
@@ -34,6 +35,7 @@ const OrganizationForm = () => {
       }
 
     } catch (err) {
+      console.log(err)
       await Swal.fire({
         title: "Internal Server Error"
       })
@@ -62,10 +64,10 @@ const OrganizationForm = () => {
           ]}>
             <Input type="number" />
           </Form.Item>
-          <Form.Item label={"Ntn No"} name={"ntn"} >
+          <Form.Item label={"Ntn No"} name={"ntn"} required={true} >
             <Input type="number" />
           </Form.Item>
-          <Form.Item label={"Location"} name={"location"} >
+          <Form.Item label={"Location"} name={"location"} required={true}>
             <Input />
           </Form.Item>
           <Form.Item  >

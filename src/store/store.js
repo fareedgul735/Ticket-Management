@@ -7,7 +7,7 @@ import {
 } from "./slices/user";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
-import persistStore from "redux-persist/lib/persistStore";
+import persistStore from "redux-persist/es/persistStore";
 
 
 export const rootReducer = combineReducers({
@@ -17,7 +17,7 @@ export const rootReducer = combineReducers({
 
 const persistConfig = {
     key: "userId",
-    storage,
+    storage
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -27,6 +27,6 @@ export const store = configureStore({
     reducer: persistedReducer
 })
 
-export const persist = persistStore(store)
+export const persisted = persistStore(store);
 
 export default store;

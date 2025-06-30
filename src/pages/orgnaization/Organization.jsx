@@ -11,7 +11,7 @@ const Organization = () => {
     const columns = [
         { title: "Name", dataIndex: "name", },
         { title: "Contact", dataIndex: "contact" },
-        { title: "Ntn Number", dataIndex: "ntn", render: (value) => value || "-" },
+        { title: "Ntn Number", dataIndex: "ntn", },
         { title: "Location", dataIndex: "location" },
         {
             title: "Actions", dataIndex: "actions",

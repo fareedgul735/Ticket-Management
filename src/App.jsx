@@ -8,6 +8,8 @@ import NonAuth from "./layout/NonAuth";
 import Auth from "./layout/auth";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
+import Layout from "./Layout";
+import Setting from "./pages/setting/Setting";
 
 
 
@@ -15,19 +17,22 @@ function App() {
   return (
     <>
       <Routes>
-        <Route element={<Auth />}>
+        <Route path="/" element={<Auth />}>
+          <Route index element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<NonAuth />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/organization">
-            <Route index element={<Organization />} />
-            <Route path="form" element={<OrganizationForm />} />
-          </Route>
-          <Route path="/user">
-            <Route index element={<User />} />
-            <Route path="form" element={<UserForm />} />
+          <Route element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/organization">
+              <Route index element={<Organization />} />
+              <Route path="form" element={<OrganizationForm />} />
+            </Route>
+            <Route path="/employee">
+              <Route index element={<User />} />
+              <Route path="form" element={<UserForm />} />
+            </Route>
+            <Route path="/settings" element={<Setting />} />
           </Route>
         </Route>
       </Routes>

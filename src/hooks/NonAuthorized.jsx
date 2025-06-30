@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const useNonAuthorized = () => {
-    const { userId } = useSelector((state) => state.user)
+    const { userId } = useSelector((state) => state?.user)
 
     const navigate = useNavigate()
     useEffect(() => {
-        if (!userId) navigate("/login")
+        if (!userId) navigate("/")
     }, [])
 
 }
