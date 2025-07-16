@@ -18,13 +18,15 @@ import Swal from "sweetalert2";
 
 import "./global.css"
 import { logoutUser } from "./store/slices/user";
+import { useTheme } from "./context/ThemeContext";
 
 
 const Layout = () => {
-    const [toggle, setToggle] = useState(false)
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { theme, toggleHandler } = useTheme();
+    console.log(theme, toggleHandler)
 
     const showDrawer = () => setOpen(true);
     const onClose = () => setOpen(false);
@@ -40,16 +42,13 @@ const Layout = () => {
         });
         return res.isConfirmed;
     };
-    const handlerToggle = () => {
-        setToggle(!toggle)
-    }
 
     return (
         <>
             <div className="navbar-wrapper">
                 <div className="logo">
                     <FaClipboardCheck />
-                    Taskly
+                    TMS
                 </div>
                 <Button type="none" className="drawer-btn" onClick={showDrawer}>
                     <FaBars />
@@ -58,9 +57,9 @@ const Layout = () => {
                 <Drawer
                     width={250}
                     onClose={onClose}
-                    title={<div>
+                    title={<div className="drawer-title">
                         <FaClipboardCheck />
-                        <span>Taskly</span>
+                        <span>TMS</span>
                     </div>}
                     placement="left"
                     open={open}
@@ -87,9 +86,9 @@ const Layout = () => {
                     <div className="drawer-others">
                         <p>Others</p>
                         <div className="theme">
-                            <Button icon={toggle ? <FaSun /> : <FaMoon />}>
-                                {toggle ? "Light Mode" : "Dark Mode"}
-                                <Switch checked={toggle} onChange={handlerToggle} />
+                            <Button type="none" icon={theme ? <FaSun /> : <FaMoon />}>
+                                {theme ? "Light Mode" : "Dark Mode"}
+                                <Switch checked={theme} onChange={toggleHandler} />
                             </Button>
 
                         </div>
