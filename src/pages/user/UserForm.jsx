@@ -5,10 +5,15 @@ import { DB_COLLECTION, USER_ROLES } from "../../lib/constant"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
 
 const UserForm = () => {
+    const  userId  = useSelector((state)=>state.user.userId)
     const navigate = useNavigate();
     const [organization, setOrganization] = useState([]);
+
+    console.log(organization,"organizations")
 
     const saveUserDetails = async (employeeId, userDetails) => {
         const payload = { employeeId, ...userDetails }
@@ -31,9 +36,10 @@ const UserForm = () => {
 
     }
     const onUserDataSuccessfully = async (data) => {
+
         const { email, password, ...userDetails } = data;
         try {
-            const createdBy = localStorage.getItem("employeeId");
+            const createdBy  = userId
             const confirmation = await userConfirmation();
             if (confirmation) {
                 const employeeId = await saveUserAndGetId(email, password);
@@ -42,7 +48,7 @@ const UserForm = () => {
                     createdBy,
                     role: USER_ROLES.EMPLOYEE,
                 });
-                navigate("/user");
+                navigate("/employee");
                 return userDetailsSave;
             }
         } catch (err) {
@@ -56,10 +62,10 @@ const UserForm = () => {
 
     const fetchOrganizationData = async () => {
         const parsedData = [];
-        const userId = localStorage.getItem("userId");
+        const createdBy = userId
         try {
             const collectionRef = collection(db, DB_COLLECTION.ORGANIZATIONS);
-            const customQuery = where("userId", "==", userId);
+            const customQuery = where("userId", "==", createdBy);
             const qRef = query(collectionRef, customQuery);
             const querySnapshot = await getDocs(qRef);
             querySnapshot.forEach((docs) => {

@@ -10,7 +10,8 @@ import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Layout from "./Layout";
 import Setting from "./pages/setting/Setting";
-
+import Tasks from "./pages/tasks/Tasks";
+import AddTasks from "./pages/tasks/AddTasks";
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
               <Route path="form" element={<UserForm />} />
             </Route>
             <Route path="/settings" element={<Setting />} />
+            <Route path="/tasks">
+            <Route index element={<Tasks />}/>
+            <Route path="addTasks" element={<AddTasks />}/>
+            </Route>
           </Route>
         </Route>
       </Routes>

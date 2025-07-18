@@ -52,7 +52,7 @@ const Signup = () => {
       if (isUserConfirmed) {
         const adminId = await saveUserAndGetId(email, password);
         await saveUserDetails({ ...userDetails, role: USER_ROLES.ADMIN }, adminId);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (err) {
       console.log(err)

@@ -3,7 +3,6 @@
     padding: 0px;
 }
 
-
 .loading {
     display: flex;
     justify-content: center;
@@ -17,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    background: linear-gradient(135deg, #000000, #434343);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     position: sticky;
@@ -28,7 +27,7 @@
 
 .logo {
     display: flex;
-    gap: 12px;
+    gap: 6px;
     color: #ffffff;
     font-size: 1.8rem;
     font-weight: bold;
@@ -57,14 +56,16 @@
     }
 
     .ant-drawer-body {
-        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        background: linear-gradient(135deg, #000000, #434343);
+
         color: #fff;
         height: 100%;
         padding: 2rem 1.5rem;
     }
 
     .ant-drawer-header {
-        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        background: linear-gradient(135deg, #000000, #434343);
+
         color: #fff;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }

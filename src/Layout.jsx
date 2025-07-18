@@ -26,7 +26,6 @@ const Layout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { theme, toggleHandler } = useTheme();
-    console.log(theme, toggleHandler)
 
     const showDrawer = () => setOpen(true);
     const onClose = () => setOpen(false);
@@ -82,6 +81,12 @@ const Layout = () => {
                                 Organization
                             </Button>
                         </Link>
+                             <Link to="/tasks" onClick={onClose}>
+                            <Button type="none" icon={<FaBuilding />} className="drawer-btn-link">
+                                Tasks
+                            </Button>
+                        </Link>
+
                     </div>
                     <div className="drawer-others">
                         <p>Others</p>

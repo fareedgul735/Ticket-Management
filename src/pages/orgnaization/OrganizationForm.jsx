@@ -3,8 +3,10 @@ import { addDoc, collection, db } from "../../lib/firebase"
 import { DB_COLLECTION } from "../../lib/constant"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router"
+import { useSelector } from "react-redux"
 
 const OrganizationForm = () => {
+  const userId = useSelector((state)=>state.user.userId);
   const navigate = useNavigate()
 
   const saveOrganization = async (userDetails, userId) => {
@@ -24,13 +26,12 @@ const OrganizationForm = () => {
   }
 
   const onDataSuccessfully = async (data) => {
-    const userId = localStorage.getItem("userId");
-    console.log(userId)
+const createdBy = userId
     try {
 
       const isUserConfirmed = await getUserConfirmation();
       if (isUserConfirmed) {
-        await saveOrganization(data, userId)
+        await saveOrganization(data, createdBy)
         navigate("/organization")
       }
 

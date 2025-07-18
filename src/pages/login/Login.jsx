@@ -3,7 +3,7 @@ import { auth, signInWithEmailAndPassword } from '../../lib/firebase';
 import Swal from 'sweetalert2';
 import { Button, Form, Input } from 'antd';
 import './Login.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/slices/user';
 import { FaArrowRight } from 'react-icons/fa';
 
