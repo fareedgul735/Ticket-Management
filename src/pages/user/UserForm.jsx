@@ -1,19 +1,22 @@
 import { Button, Form, Input, Select } from "antd"
 import { EMAIL_PATTERN, PAKISTAN_CNIC_PATTERN, PASSWORD_PATTERN } from "../../lib/regex"
 import { addDoc, auth, collection, createUserWithEmailAndPassword, db, getDocs, query, where } from "../../lib/firebase"
-import { DB_COLLECTION, USER_ROLES } from "../../lib/constant"
+import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.jsx"
 import Swal from "sweetalert2"
+import {
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+
+import"./User.css"
 
 
 const UserForm = () => {
     const  userId  = useSelector((state)=>state.user.userId)
     const navigate = useNavigate();
     const [organization, setOrganization] = useState([]);
-
-    console.log(organization,"organizations")
 
     const saveUserDetails = async (employeeId, userDetails) => {
         const payload = { employeeId, ...userDetails }
@@ -88,55 +91,23 @@ const UserForm = () => {
     useEffect(() => {
         fetchOrganizationData()
     }, [])
-    return (
-        <div className="user-form-wrapper">
-            <Form className="form-container" onFinish={onUserDataSuccessfully}>
-                <Form.Item label={"Fullname"} name={"fullname"} rules={[
-                    { required: true }
-                ]} >
-                    <Input />
-                </Form.Item>
-                <Form.Item label={"UserName"} name={"username"} rules={[
-                    { required: true }
-                ]} >
-                    <Input />
-                </Form.Item>
-                <Form.Item label={"PhoneNo"} name={"phone"} rules={[
-                    { required: true }
-                ]} >
-                    <Input />
-                </Form.Item>
-                <Form.Item label={"Email"} name={"email"} rules={[
-                    { required: true },
-                    { pattern: EMAIL_PATTERN, message: "Please enter the invalid email" }
-                ]} >
-                    <Input />
-                </Form.Item>
-                <Form.Item label={"Password"} name={"password"} rules={[
-                    { required: true },
-                    { pattern: PASSWORD_PATTERN, message: "Password must be 8+ chars, include uppercase, lowercase, number & special char." }
-                ]} >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item label={"Cnic"} name={"cnic"} rules={[
-                    { required: true },
-                    { pattern: PAKISTAN_CNIC_PATTERN, message: "Please Invalid Cnic" }
-                ]} >
-                    <Input />
-                </Form.Item>
-                <Form.Item label={"Organization"} name={"organizationId"} rules={[
-                    { required: true },
-                ]} >
-                    <Select showSearch options={organization} />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    )
+return (
+    <div className="user-form-wrapper light-bg">
+      <Form className="form-container" layout="vertical" onFinish={onUserDataSuccessfully}>
+        <Form.Item label="FullName" name="fullname" rules={[{ required: true }]}> <Input placeholder="Enter full name" /> </Form.Item>
+        <Form.Item label="UserName" name="username" rules={[{ required: true }]}> <Input placeholder="Enter username" /> </Form.Item>
+        <Form.Item label="Phone No" name="phone" rules={[{ required: true }]}> <Input placeholder="XXXX-XXXXXXXX" /> </Form.Item>
+        <Form.Item label="Email" name="email" rules={[{ required: true }, { pattern: EMAIL_PATTERN, message: "Please enter a valid email" }]}> <Input placeholder="example@email.com" /> </Form.Item>
+        <Form.Item label="Password" name="password" rules={[{ required: true }, { pattern: PASSWORD_PATTERN, message: "Password must be 8+ chars, include uppercase, lowercase, number & special char." }]}> <Input.Password placeholder="Enter secure password" /> </Form.Item>
+        <Form.Item label="CNIC" name="cnic" rules={[{ required: true }, { pattern: PAKISTAN_CNIC_PATTERN, message: "Invalid CNIC" }]}> <Input placeholder="xxxxx-xxxxxxx-x" /> </Form.Item>
+        <Form.Item label="Organization" name="organizationId" rules={[{ required: true }]}> <Select showSearch options={organization} placeholder="Select Organization" /> </Form.Item>
+
+        <Form.Item>
+          <Button type="none" className="submit-btn" htmlType="submit"><UsergroupAddOutlined /> Add Employee</Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 }
 
 export default UserForm

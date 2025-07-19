@@ -3,7 +3,7 @@ import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { collection, db, getDocs, query, where } from "../../lib/firebase";
-import { DB_COLLECTION } from "../../lib/constant";
+import { DB_COLLECTION } from "../../lib/constant.jsx";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import "./Organization.css"; 

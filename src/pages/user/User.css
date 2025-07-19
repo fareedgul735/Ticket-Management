@@ -1,5 +1,4 @@
-/* light-theme-color */
-/* background: linear-gradient(135deg, #ffffff, #e6e9f0); */
+
 
 
 body,
@@ -137,5 +136,77 @@ html {
     .actions-btn button {
         font-size: 14px;
         padding: 4px 6px;
+    }
+}
+
+.user-form-wrapper.light-bg {
+    background: linear-gradient(135deg, #ffffff, #e6e9f0);
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-container .ant-form-item {
+    margin-bottom: 20px;
+}
+
+.form-container .ant-form-item-label>label {
+    font-weight: 500;
+    color: #333;
+}
+
+.form-container .ant-input,
+.form-container .ant-input-password,
+.form-container .ant-select-selector {
+    background-color: #f8f9fc;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.form-container .ant-input::placeholder,
+.form-container .ant-input-password::placeholder {
+    color: #999;
+}
+
+.form-container .ant-input:focus,
+.form-container .ant-input-password:focus,
+.form-container .ant-select-focused .ant-select-selector {
+    border-color: #1677ff;
+    box-shadow: 0 0 5px rgba(22, 119, 255, 0.5);
+}
+
+.submit-btn {
+    padding: 18px 0px;
+    background: linear-gradient(135deg, #000000, #434343);
+    color: #ffffff;
+    border: 1px solid #1f1c2c;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #000000, #434343);
+    color: #ffffff;
+    box-shadow: rgb(179, 166, 168) 0px 3px 8px;
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 600px) {
+    .user-form-wrapper.light-bg {
+        padding: 20px 15px;
+        margin: 20px;
+    }
+
+    .submit-btn {
+        font-size: 14px;
     }
 }

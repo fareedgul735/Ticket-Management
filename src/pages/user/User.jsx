@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db, collection, getDocs, query, where } from "../../lib/firebase";
-import { DB_COLLECTION } from "../../lib/constant";
+import { DB_COLLECTION } from "../../lib/constant.jsx";
 import { useSelector } from "react-redux";
 import "./User.css";
 

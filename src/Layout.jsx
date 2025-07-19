@@ -5,9 +5,6 @@ import {
     FaBars,
     FaCog,
     FaSignOutAlt,
-    FaThLarge,
-    FaUserTie,
-    FaBuilding,
     FaClipboardCheck,
     FaMoon,
     FaSun,
@@ -19,6 +16,8 @@ import Swal from "sweetalert2";
 import "./global.css"
 import { logoutUser } from "./store/slices/user";
 import { useTheme } from "./context/ThemeContext";
+import { DrawerData } from "./lib/constant.jsx";
+import { NavLink } from "react-router";
 
 
 const Layout = () => {
@@ -44,8 +43,8 @@ const Layout = () => {
 
     return (
         <>
-            <div className="navbar-wrapper">
-                <div className="logo">
+            <div className={theme?"navbar-wrapper-light":"navbar-wrapper-dark"}>
+                <div className={theme?"logo-light":"logo-dark"}>
                     <FaClipboardCheck />
                     TMS
                 </div>
@@ -66,56 +65,58 @@ const Layout = () => {
                 >
                     <div className="drawer-menu">
                         <p>Menu</p>
-                        <Link to="/dashboard" onClick={onClose}>
-                            <Button type="none" icon={<FaThLarge />} className="drawer-btn-link">
-                                Dashboard
-                            </Button>
-                        </Link>
-                        <Link to="/employee" onClick={onClose}>
-                            <Button type="none" icon={<FaUserTie />} className="drawer-btn-link">
-                                Employee
-                            </Button>
-                        </Link>
-                        <Link to="/organization" onClick={onClose}>
-                            <Button type="none" icon={<FaBuilding />} className="drawer-btn-link">
-                                Organization
-                            </Button>
-                        </Link>
-                             <Link to="/tasks" onClick={onClose}>
-                            <Button type="none" icon={<FaBuilding />} className="drawer-btn-link">
-                                Tasks
-                            </Button>
-                        </Link>
+                     {
+                        DrawerData.map((item,index)=>(
+                       <NavLink
+                       onClick={onClose}
+                      key={index}
+                      to={item.path}
+                      className={({ isActive }) => (isActive ? "nav-link-active" : "")}
+                    >
+                      <Button type="none" className="drawer-btn-link">
+                        <span>{item.icon}</span>
+                        <span>{item.title}</span>
+                      </Button>
+                    </NavLink>
+
+                        ))
+                     }
 
                     </div>
                     <div className="drawer-others">
                         <p>Others</p>
-                        <div className="theme">
-                            <Button type="none" icon={theme ? <FaSun /> : <FaMoon />}>
-                                {theme ? "Light Mode" : "Dark Mode"}
-                                <Switch checked={theme} onChange={toggleHandler} />
-                            </Button>
+                    <div className="theme">
+                      <Button
+                        type="none"
+                        icon={theme ? <FaMoon /> : <FaSun />}
+                        className="drawer-btn-link"
+                      >
+                        {theme ? "Dark Mode" : "Light Mode"}
+                        <Switch  checked={theme} onChange={toggleHandler} />
+                      </Button>
+                         </div>
 
-                        </div>
-                        <Link to="/settings" onClick={onClose}>
-                            <Button type="none" icon={<FaCog />} className="drawer-btn-link">
+                        <NavLink className={({ isActive }) => (isActive ? "nav-link-active" : "")}  to="/settings" onClick={onClose}>
+                              <Button type="none" icon={<FaCog />} className="drawer-btn-link">
                                 Settings
-                            </Button>
-                        </Link>
-                        <Button
-                            type="none"
-                            icon={<FaSignOutAlt />}
-                            className="drawer-btn-link logout"
-                            onClick={async () => {
+                              </Button>
+                            </NavLink>
+
+                            <Button
+                              type="none"
+                              icon={<FaSignOutAlt />}
+                              className="drawer-btn-link logout"
+                              onClick={async () => {
                                 const confirmed = await userConfirmation();
                                 if (confirmed) {
-                                    dispatch(logoutUser());
-                                    navigate("/");
+                                  dispatch(logoutUser());
+                                  navigate("/");
                                 }
-                            }}
-                        >
-                            Logout
-                        </Button>
+                              }}
+                            >
+                              Logout
+                            </Button>
+
                     </div>
                 </Drawer>
             </div >

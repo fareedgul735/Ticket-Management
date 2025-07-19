@@ -10,7 +10,7 @@ import {
   addDoc,
   createUserWithEmailAndPassword,
 } from "../../lib/firebase.js";
-import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.js";
+import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.jsx";
 import { FaUserPlus } from "react-icons/fa";
 const Signup = () => {
   const navigate = useNavigate();
