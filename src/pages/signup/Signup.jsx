@@ -51,11 +51,14 @@ const Signup = () => {
       const isUserConfirmed = await userConfirmation();
       if (isUserConfirmed) {
         const adminId = await saveUserAndGetId(email, password);
-        await saveUserDetails({ ...userDetails, role: USER_ROLES.ADMIN }, adminId);
+        await saveUserDetails(
+          { ...userDetails, role: USER_ROLES.ADMIN },
+          adminId
+        );
         navigate("/");
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       await Swal.fire({
         text: "Internal Server Error!",
         background: "#000",
@@ -73,19 +76,29 @@ const Signup = () => {
     <div className="signup-wrapper">
       <div className="signup-form-side">
         <h2 className="signup-title">Create an Account</h2>
-        <p className="signup-subtitle">Join us to manage your tickets smartly</p>
-        <Form className="signup-form-content" onFinish={onSignupDataSuccessfully} layout="vertical">
+        <p className="signup-subtitle">
+          Join us to manage your tickets smartly
+        </p>
+        <Form
+          className="signup-form-content"
+          onFinish={onSignupDataSuccessfully}
+          layout="vertical"
+        >
           <Form.Item
             name="fullname"
             label="Full Name"
-            rules={[{ required: true, message: "Please enter your fullname", min: 3 }]}
+            rules={[
+              { required: true, message: "Please enter your fullname", min: 3 },
+            ]}
           >
             <Input placeholder="John Doe" className="signup-input" />
           </Form.Item>
           <Form.Item
             name="username"
             label="Username"
-            rules={[{ required: true, message: "Please enter your username", min: 3 }]}
+            rules={[
+              { required: true, message: "Please enter your username", min: 3 },
+            ]}
           >
             <Input placeholder="john123" className="signup-input" />
           </Form.Item>
@@ -103,7 +116,8 @@ const Signup = () => {
               { required: true, message: "Please enter your password" },
               {
                 pattern: PASSWORD_PATTERN,
-                message: "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
+                message:
+                  "Password must be 8+ chars, include uppercase, lowercase, number & special char.",
               },
             ]}
           >
@@ -112,16 +126,30 @@ const Signup = () => {
           <Form.Item
             name="phone_number"
             label="Phone Number"
-            rules={[{ required: true, message: "Please enter your phone number", min: 11 }]}
+            rules={[
+              {
+                required: true,
+                message: "Please enter your phone number",
+                min: 11,
+              },
+            ]}
           >
-            <Input type="number" placeholder="03XXXXXXXXX" className="signup-input" />
+            <Input
+              type="number"
+              placeholder="03XXXXXXXXX"
+              className="signup-input"
+            />
           </Form.Item>
           <Form.Item
             name="cnic_number"
             label="CNIC Number"
             rules={[
               { required: true, message: "Please enter your CNIC number" },
-              { pattern: PAKISTAN_CNIC_PATTERN, message: "Please enter a valid CNIC", min: 13 },
+              {
+                pattern: PAKISTAN_CNIC_PATTERN,
+                message: "Please enter a valid CNIC",
+                min: 13,
+              },
             ]}
           >
             <Input placeholder="XXXXX-XXXXXXX-X" className="signup-input" />
@@ -131,7 +159,10 @@ const Signup = () => {
           </Button>
         </Form>
         <div className="redirect-login">
-          Don`t have an account ? <Link className="text" to={"/login"}><span>Login</span></Link>
+          Already have an account ? {""}
+          <Link className="text" to={"/"}>
+            <span>Login</span>
+          </Link>
         </div>
       </div>
     </div>
