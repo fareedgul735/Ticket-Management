@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 
 const Tasks = () => {
   const { userId, role } = useSelector((state) => state.user);
-  console.log(userId, role, "userObject");
+
+  console.log(userId, role);
   const [dataSource, setDataSource] = useState([]);
   const columns = [
     { title: "Name", dataIndex: "name" },
@@ -35,7 +36,7 @@ const Tasks = () => {
     { title: "Status", dataIndex: "status", render: (value) => value || "-" },
     {
       title: "AssignedTo",
-      dataIndex: "assigned",
+      dataIndex: "assignedTo",
       render: (value) => value?.label || "-",
     },
     {
@@ -83,12 +84,14 @@ const Tasks = () => {
       const queryKey = isEmployee ? "assignedTo" : "userId";
       const customQuery = where(queryKey, "==", userId);
 
-      const qRef = query(customQuery, collectionRef);
+      const qRef = query(collectionRef, customQuery);
       const querySnapshot = await getDocs(qRef);
       querySnapshot.forEach((docs) => {
         const data = { id: docs.id, ...docs.data() };
         parsedData.push(data);
+        console.log(parsedData, "parsedDataTicket");
       });
+
       setDataSource(parsedData);
     } catch (err) {
       console.log(err);

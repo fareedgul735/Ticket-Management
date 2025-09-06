@@ -16,7 +16,7 @@ import {
 } from "../../lib/firebase";
 import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.jsx";
 import Swal from "sweetalert2";
-import { UsergroupAddOutlined } from "@ant-design/icons";
+import { CloseOutlined, UsergroupAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
