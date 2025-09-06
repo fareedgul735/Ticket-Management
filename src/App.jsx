@@ -5,14 +5,13 @@ import OrganizationForm from "./pages/orgnaization/OrganizationForm";
 import User from "./pages/user/User";
 import UserForm from "./pages/user/UserForm";
 import NonAuth from "./layout/NonAuth";
-import Auth from "./layout/auth";
+import Auth from "./layout/Auth";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Layout from "./Layout";
 import Setting from "./pages/setting/Setting";
 import Tasks from "./pages/tasks/Tasks";
 import AddTasks from "./pages/tasks/AddTasks";
-
 
 function App() {
   return (
@@ -35,13 +34,12 @@ function App() {
             </Route>
             <Route path="/settings" element={<Setting />} />
             <Route path="/tasks">
-            <Route index element={<Tasks />}/>
-            <Route path="addTasks" element={<AddTasks />}/>
+              <Route index element={<Tasks />} />
+              <Route path="addTasks" element={<AddTasks />} />
             </Route>
           </Route>
         </Route>
       </Routes>
-
     </>
   );
 }
