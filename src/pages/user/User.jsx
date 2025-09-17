@@ -18,9 +18,21 @@ const User = () => {
   const [loading, setLoading] = useState(true);
 
   const columns = [
-    { title: "Name", dataIndex: "fullname",render: (text) => <span className="bold-text">{text}</span>, },
-    { title: "Phone No", dataIndex: "phone",    render: (text) => <span className="blue-text">{text}</span>, },
-    { title: "CNIC", dataIndex: "cnic",   render: (text) => <span className="green-text">{text}</span>, },
+    {
+      title: "Name",
+      dataIndex: "fullname",
+      render: (text) => <span className="bold-text">{text}</span>,
+    },
+    {
+      title: "Phone No",
+      dataIndex: "phone",
+      render: (text) => <span className="blue-text">{text}</span>,
+    },
+    {
+      title: "CNIC",
+      dataIndex: "cnic",
+      render: (text) => <span className="green-text">{text}</span>,
+    },
     {
       title: "Actions",
       dataIndex: "actions",
@@ -34,11 +46,15 @@ const User = () => {
         return (
           <div className="actions-btn">
             <Tooltip title="Edit" placement="bottom">
-              <Button type="none" className="edit-btn" icon={<EditOutlined />} />
+              <Button
+                type="none"
+                className="edit-btn"
+                icon={<EditOutlined />}
+              />
             </Tooltip>
             <Tooltip title="Delete" placement="bottom">
               <Button
-              type="none"
+                type="none"
                 className="delete-btn"
                 onClick={onDelete}
                 icon={<DeleteOutlined />}
@@ -54,7 +70,7 @@ const User = () => {
   ];
 
   const fetchData = async () => {
-    const parsedData= [];
+    const parsedData = [];
     try {
       const collectionRef = collection(db, DB_COLLECTION.USERS);
       const qRef = query(collectionRef, where("createdBy", "==", userId));
@@ -67,9 +83,9 @@ const User = () => {
       setDataSource(parsedData);
     } catch (err) {
       console.error("Error fetching users:", err);
-            await Swal.fire({
-              text: "Internal Server Error",
-            });
+      await Swal.fire({
+        text: "Internal Server Error",
+      });
     } finally {
       setLoading(false);
     }
@@ -83,10 +99,13 @@ const User = () => {
     <div className="users-wrapper">
       <div className="users-container">
         <div className="header-actions">
-          <h2> <UsergroupAddOutlined /> Employee List</h2>
+          <h2>
+            {" "}
+            <UsergroupAddOutlined /> Employee List
+          </h2>
           <Link to="form">
             <Button
-            type="none"
+              type="none"
               className="add-employee-btn"
               icon={<UsergroupAddOutlined />}
               size="middle"
@@ -96,28 +115,26 @@ const User = () => {
           </Link>
         </div>
 
-<div className="table-wrapper">
-  <Table
-    columns={columns}
-    dataSource={datasource}
-    rowKey="id"
-    bordered
-    pagination={{ position: ["bottomCenter"], pageSize: 8 }}
-    size="middle"
-    scroll={{ x: "max-content" }} // ✅ makes table horizontally scrollable
-    locale={{
-      emptyText: loading ? (
-        <div className="no-data-spinner">
-          <Spin tip="Loading..." />
+        <div className="table-wrapper">
+          <Table
+            columns={columns}
+            dataSource={datasource}
+            rowKey="id"
+            bordered
+            pagination={{ position: ["bottomCenter"], pageSize: 8 }}
+            size="middle"
+            scroll={{ x: "max-content" }}
+            locale={{
+              emptyText: loading ? (
+                <div className="no-data-spinner">
+                  <Spin tip="Loading..." />
+                </div>
+              ) : (
+                "No employees found."
+              ),
+            }}
+          />
         </div>
-      ) : (
-        "No employees found."
-      ),
-    }}
-  />
-</div>
-
-
       </div>
     </div>
   );

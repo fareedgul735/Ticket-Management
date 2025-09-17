@@ -1,10 +1,8 @@
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import {
   getFirestore,
@@ -14,7 +12,9 @@ import {
   query,
   where,
   getDoc,
-  doc
+  doc,
+  setDoc,
+  or,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -42,5 +42,7 @@ export {
   query,
   where,
   getDoc,
-  doc
-}
+  doc,
+  setDoc,
+  or,
+};

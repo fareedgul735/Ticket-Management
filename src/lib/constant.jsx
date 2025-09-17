@@ -33,7 +33,7 @@ export const DrawerData = [
     icon: <FaBuilding />,
   },
   {
-    title: "Tasks",
+    title: "Tickets",
     path: "/tasks",
     icon: <FaClipboardCheck />,
   },

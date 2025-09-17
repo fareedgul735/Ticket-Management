@@ -10,13 +10,15 @@ import {
   collection,
   createUserWithEmailAndPassword,
   db,
+  doc,
   getDocs,
   query,
+  setDoc,
   where,
 } from "../../lib/firebase";
 import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.jsx";
 import Swal from "sweetalert2";
-import { CloseOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import { UsergroupAddOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -25,15 +27,13 @@ import "./User.css";
 
 const UserForm = () => {
   const { userId } = useSelector((state) => state.user);
-  console.log(userId, "userId");
   const navigate = useNavigate();
   const [organization, setOrganization] = useState([]);
 
   const saveUserDetails = async (employeeId, userDetails) => {
     const payload = { employeeId, ...userDetails };
-    const collectionRef = collection(db, DB_COLLECTION.USERS);
-    const docRef = await addDoc(collectionRef, payload);
-    return docRef;
+    const docRef = doc(db, DB_COLLECTION.USERS, employeeId);
+    await setDoc(docRef, payload);
   };
   const saveUserAndGetId = async (email, password) => {
     const response = await createUserWithEmailAndPassword(

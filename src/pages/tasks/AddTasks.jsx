@@ -5,25 +5,26 @@ import {
   TICKET_STATUSES,
 } from "../../lib/constant";
 import { useSelector } from "react-redux";
-import { collection, db, getDocs, query, where } from "../../lib/firebase";
+import {
+  addDoc,
+  collection,
+  db,
+  getDocs,
+  query,
+  where,
+} from "../../lib/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const AddTasks = () => {
   const { userId } = useSelector((state) => state.user);
-  console.log(userId, "userId");
-
   const [fetchUserData, setFetchUserData] = useState([]);
   const navigate = useNavigate();
-
   const saveUserTaskDetailed = async (taskDetail, userId) => {
     const taskDetailedPayload = { userId, ...taskDetail };
     const collectionRef = collection(db, DB_COLLECTION.TICKETS);
-    console.log(collectionRef, "collectionRef");
-
-    await getDocs(collectionRef, taskDetailedPayload);
+    await addDoc(collectionRef, taskDetailedPayload);
   };
-
   const onDataSuccessfully = async (data) => {
     const createdBy = userId;
     try {
@@ -31,16 +32,15 @@ const AddTasks = () => {
         (u) => u.value === data.assignedTo
       );
       const payload = { ...data, assignedUser, createdAt: new Date() };
-      
       await saveUserTaskDetailed(payload, createdBy);
       navigate("/tasks");
     } catch (err) {
       console.log(err);
     }
   };
-
   const fetchDataUser = async () => {
     const createdBy = userId;
+    console.log(createdBy, "createdBy");
     const parsedData = [];
     try {
       const collectionRef = collection(db, DB_COLLECTION.USERS);
@@ -53,13 +53,11 @@ const AddTasks = () => {
         const data = { value, label };
         parsedData.push(data);
       });
-
       setFetchUserData(parsedData);
     } catch (err) {
       console.log(err);
     }
   };
-
   useEffect(() => {
     fetchDataUser();
   }, []);
@@ -72,16 +70,9 @@ const AddTasks = () => {
               label="Name"
               name={"name"}
               rules={[
-                {
-                  required: true,
-                  whitespace: true,
-                },
-                {
-                  min: 2,
-                },
-                {
-                  max: 25,
-                },
+                { required: true, whitespace: true },
+                { min: 2 },
+                { max: 25 },
               ]}
             >
               <Input />
@@ -91,11 +82,7 @@ const AddTasks = () => {
             <Form.Item
               label="Priority"
               name={"priority"}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <Select options={TICKET_PRIORITIES} />
             </Form.Item>
@@ -104,11 +91,7 @@ const AddTasks = () => {
             <Form.Item
               label="Status"
               name={"status"}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <Select options={TICKET_STATUSES} />
             </Form.Item>
@@ -117,11 +100,7 @@ const AddTasks = () => {
             <Form.Item
               label="Assigned To"
               name={"assignedTo"}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              rules={[{ required: true }]}
             >
               <Select options={fetchUserData} />
             </Form.Item>

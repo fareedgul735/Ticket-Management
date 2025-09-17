@@ -50,10 +50,10 @@ const Signup = () => {
     try {
       const isUserConfirmed = await userConfirmation();
       if (isUserConfirmed) {
-        const adminId = await saveUserAndGetId(email, password);
+        const userId = await saveUserAndGetId(email, password);
         await saveUserDetails(
           { ...userDetails, role: USER_ROLES.ADMIN },
-          adminId
+          userId
         );
         navigate("/");
       }
