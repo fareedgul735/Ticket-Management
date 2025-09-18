@@ -4,11 +4,9 @@ import {
     useState
 } from "react";
 
-// this is a context
 
 export const ThemeContext = createContext();
 
-// this is a provider in all components in shared data 
 export const ThemeProvider = ({
     children
 }) => {
@@ -23,5 +21,4 @@ export const ThemeProvider = ({
     </ThemeContext>)
 }
 
-// this is a consumer
 export const useTheme = () => useContext(ThemeContext);

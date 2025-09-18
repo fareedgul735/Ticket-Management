@@ -39,6 +39,21 @@ export const DrawerData = [
   },
 ];
 
+export const salesData = [
+  { date: "1/1/2023", sales: 1200, returns: 200 },
+  { date: "1/2/2023", sales: 1800, returns: 300 },
+  { date: "1/3/2023", sales: 1500, returns: 150 },
+  { date: "1/4/2023", sales: 2000, returns: 250 },
+  { date: "1/5/2023", sales: 2200, returns: 400 },
+];
+
+export const weeklyData = [
+  { week: "W1", netSales: 2.1 },
+  { week: "W2", netSales: 2.6 },
+  { week: "W3", netSales: 2.0 },
+  { week: "W4", netSales: 1.8 },
+  { week: "W5", netSales: 1.7 },
+];
 export const TICKET_PRIORITIES = [
   { label: "High", value: "High" },
   { label: "Medium", value: "Medium" },

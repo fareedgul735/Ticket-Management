@@ -14,7 +14,8 @@ import {
   where,
 } from "../../lib/firebase";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const AddTasks = () => {
   const { userId } = useSelector((state) => state.user);
@@ -62,59 +63,80 @@ const AddTasks = () => {
     fetchDataUser();
   }, []);
   return (
-    <div className="ticket-form">
-      <Form onFinish={onDataSuccessfully}>
-        <Row gutter={6}>
-          <Col sm={24}>
-            <Form.Item
-              label="Name"
-              name={"name"}
-              rules={[
-                { required: true, whitespace: true },
-                { min: 2 },
-                { max: 25 },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col sm={24}>
-            <Form.Item
-              label="Priority"
-              name={"priority"}
-              rules={[{ required: true }]}
-            >
-              <Select options={TICKET_PRIORITIES} />
-            </Form.Item>
-          </Col>
-          <Col sm={24}>
-            <Form.Item
-              label="Status"
-              name={"status"}
-              rules={[{ required: true }]}
-            >
-              <Select options={TICKET_STATUSES} />
-            </Form.Item>
-          </Col>
-          <Col sm={24}>
-            <Form.Item
-              label="Assigned To"
-              name={"assignedTo"}
-              rules={[{ required: true }]}
-            >
-              <Select options={fetchUserData} />
-            </Form.Item>
-          </Col>
-          <Col md={12} sm={24} offset={12}>
-            <Form.Item style={{ textAlign: "right" }}>
-              <Button type="primary" htmlType="submit" ali>
-                Submit
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </div>
+    <>
+      <div className="btn-wrapper">
+        <Link to={"/tasks"}>
+          <Button type="primary" className="btn">
+            <ArrowLeftOutlined />
+            Back Tickets List
+          </Button>
+        </Link>
+      </div>
+      <div className="user-form-wrapper light-bg">
+        <Form
+          className="form-container"
+          layout="vertical"
+          onFinish={onDataSuccessfully}
+        >
+          <Row gutter={6}>
+            <Col sm={24}>
+              <Form.Item
+                label="Name"
+                name={"name"}
+                rules={[
+                  { required: true, whitespace: true },
+                  { min: 2 },
+                  { max: 25 },
+                ]}
+              >
+                <Input placeholder="Enter ticket name" />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Form.Item
+                label="Priority"
+                name={"priority"}
+                rules={[{ required: true }]}
+              >
+                <Select
+                  options={TICKET_PRIORITIES}
+                  placeholder="Select priority"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Form.Item
+                label="Status"
+                name={"status"}
+                rules={[{ required: true }]}
+              >
+                <Select options={TICKET_STATUSES} placeholder="Select status" />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Form.Item
+                label="Assigned To"
+                name={"assignedTo"}
+                rules={[{ required: true }]}
+              >
+                <Select options={fetchUserData} placeholder="Select user" />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Form.Item>
+                <Button type="none" htmlType="submit" className="submit-btn">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </>
   );
 };
 

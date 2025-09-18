@@ -12,8 +12,12 @@ import Layout from "./Layout";
 import Setting from "./pages/setting/Setting";
 import Tasks from "./pages/tasks/Tasks";
 import AddTasks from "./pages/tasks/AddTasks";
+import ApiReferences from "./Resources/api/ApiReferences";
+import Documentation from "./Resources/documentation/Documentation";
+import Support from "./Resources/support/Support";
+import Help from "./pages/help/Help";
 
-function App() {
+const App = () => {
   return (
     <>
       <Routes>
@@ -24,6 +28,9 @@ function App() {
         <Route element={<NonAuth />}>
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/api_references" element={<ApiReferences />} />
+            <Route path="/documentation" element={<Documentation />} />
+            <Route path="/support" element={<Support />} />
             <Route path="/organization">
               <Route index element={<Organization />} />
               <Route path="form" element={<OrganizationForm />} />
@@ -32,7 +39,8 @@ function App() {
               <Route index element={<User />} />
               <Route path="form" element={<UserForm />} />
             </Route>
-            <Route path="/settings" element={<Setting />} />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/helptms" element={<Help />} />
             <Route path="/tasks">
               <Route index element={<Tasks />} />
               <Route path="addTasks" element={<AddTasks />} />
@@ -42,6 +50,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;

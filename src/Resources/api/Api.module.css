@@ -1,0 +1,60 @@
+.container {
+  padding: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+  color: #222;
+  line-height: 1.6;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+.section {
+  margin-bottom: 28px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.endpoint {
+  margin-top: 12px;
+  padding: 12px;
+  border-left: 4px solid #4cafef;
+  background: #f9fbfd;
+  border-radius: 4px;
+}
+
+.code {
+  display: block;
+  background: #1e1e1e;
+  color: #dcdcdc;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 13px;
+  margin-top: 8px;
+  white-space: pre-wrap;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  margin: 6px 0;
+}
+
+.footer {
+  margin-top: 40px;
+  color: #888;
+  font-size: 12px;
+  text-align: center;
+}

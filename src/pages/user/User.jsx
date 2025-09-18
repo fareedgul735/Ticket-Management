@@ -45,22 +45,21 @@ const User = () => {
 
         return (
           <div className="actions-btn">
-            <Tooltip title="Edit" placement="bottom">
+            <Tooltip color="green" title="Edit" placement="bottom">
               <Button
                 type="none"
                 className="edit-btn"
                 icon={<EditOutlined />}
               />
             </Tooltip>
-            <Tooltip title="Delete" placement="bottom">
+            <Tooltip color="red" title="Delete" placement="bottom">
               <Button
                 type="none"
                 className="delete-btn"
-                onClick={onDelete}
                 icon={<DeleteOutlined />}
               />
             </Tooltip>
-            <Tooltip title="View" placement="bottom">
+            <Tooltip color="blue" title="View" placement="bottom">
               <Button type="none" className="view-btn" icon={<EyeOutlined />} />
             </Tooltip>
           </div>
