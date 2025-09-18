@@ -1,53 +1,81 @@
 import { Route, Routes } from "react-router";
-import Dashboard from "./pages/dashboard/Dashboard";
-import Organization from "./pages/orgnaization/Organization";
-import OrganizationForm from "./pages/orgnaization/OrganizationForm";
-import User from "./pages/user/User";
-import UserForm from "./pages/user/UserForm";
-import NonAuth from "./layout/NonAuth";
-import Auth from "./layout/Auth";
-import Signup from "./pages/signup/Signup";
-import Login from "./pages/login/Login";
-import Layout from "./Layout";
-import Setting from "./pages/setting/Setting";
-import Tasks from "./pages/tasks/Tasks";
-import AddTasks from "./pages/tasks/AddTasks";
-import ApiReferences from "./Resources/api/ApiReferences";
-import Documentation from "./Resources/documentation/Documentation";
-import Support from "./Resources/support/Support";
-import Help from "./pages/help/Help";
+import { Suspense, lazy } from "react";
+import { Spin } from "antd";
+import NotFound from "./NotFound";
+import Network from "./Network";
+
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Organization = lazy(() => import("./pages/orgnaization/Organization"));
+const OrganizationForm = lazy(() =>
+  import("./pages/orgnaization/OrganizationForm")
+);
+const User = lazy(() => import("./pages/user/User"));
+const UserForm = lazy(() => import("./pages/user/UserForm"));
+const NonAuth = lazy(() => import("./layout/NonAuth"));
+const Auth = lazy(() => import("./layout/Auth"));
+const Signup = lazy(() => import("./pages/signup/Signup"));
+const Login = lazy(() => import("./pages/login/Login"));
+const Layout = lazy(() => import("./Layout"));
+const Setting = lazy(() => import("./pages/setting/Setting"));
+const Tasks = lazy(() => import("./pages/tasks/Tasks"));
+const AddTasks = lazy(() => import("./pages/tasks/AddTasks"));
+const ApiReferences = lazy(() => import("./Resources/api/ApiReferences"));
+const Documentation = lazy(() =>
+  import("./Resources/documentation/Documentation")
+);
+const Support = lazy(() => import("./Resources/support/Support"));
+const Help = lazy(() => import("./pages/help/Help"));
 
 const App = () => {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Auth />}>
-          <Route index element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Route>
-        <Route element={<NonAuth />}>
-          <Route element={<Layout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/api_references" element={<ApiReferences />} />
-            <Route path="/documentation" element={<Documentation />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/organization">
-              <Route index element={<Organization />} />
-              <Route path="form" element={<OrganizationForm />} />
-            </Route>
-            <Route path="/employee">
-              <Route index element={<User />} />
-              <Route path="form" element={<UserForm />} />
-            </Route>
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/helptms" element={<Help />} />
-            <Route path="/tasks">
-              <Route index element={<Tasks />} />
-              <Route path="addTasks" element={<AddTasks />} />
+      <Network />
+      <Suspense
+        fallback={
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(135deg, #000000, #434343)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Spin size="large" />
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Auth />}>
+            <Route index element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route element={<NonAuth />}>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/api_references" element={<ApiReferences />} />
+              <Route path="/documentation" element={<Documentation />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/organization">
+                <Route index element={<Organization />} />
+                <Route path="form" element={<OrganizationForm />} />
+              </Route>
+              <Route path="/employee">
+                <Route index element={<User />} />
+                <Route path="form" element={<UserForm />} />
+              </Route>
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/helptms" element={<Help />} />
+              <Route path="/tasks">
+                <Route index element={<Tasks />} />
+                <Route path="addTasks" element={<AddTasks />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </Suspense>
     </>
   );
 };
