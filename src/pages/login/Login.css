@@ -1,110 +1,119 @@
 .login-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #b5eeff, #203a43, #000000);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #b5eeff, #203a43, #000000);
 }
 
 .login-card {
-    flex: 1;
-    padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    color: #ffffff;
-    max-width: 600px;
-    animation: fadeIn 0.7s ease-in-out;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  color: #ffffff;
+  max-width: 600px;
+  animation: fadeIn 0.7s ease-in-out;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .app-name {
-    text-align: center;
-    color: #00c8ff;
+  text-align: center;
+  color: #00c8ff;
 }
 
 .login-subtitle {
-    font-size: 0.95rem;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    margin-bottom: 1.8rem;
-    margin-top: 1rem;
+  font-size: 0.95rem;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin-bottom: 1.8rem;
+  margin-top: 1rem;
 }
 
 .login-form-content .custom-input {
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    padding: 0.75rem;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.75rem;
 }
 
 .login-form-content .custom-input::placeholder {
-    color: #ccc;
+  color: #ccc;
+}
+
+.login-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
 }
 
 .login-btn {
-    width: 100%;
-    background: #00c8ff;
-    border: none;
-    color: #ffffff;
-    padding: 1.3rem;
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center !important;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
+  width: 100%;
+  background: #00c8ff;
+  border: none;
+  color: #ffffff;
+  padding: 1.3rem 2rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .login-btn:hover {
-    box-shadow: rgba(241, 216, 255, 0.986) 0px 3px 8px;
-    letter-spacing: 10px;
+  background: #00aee0; /* thoda dark shade */
+  box-shadow: 0px 5px 15px rgba(0, 200, 255, 0.5);
+  letter-spacing: 2px;
+  transform: translateY(-2px);
 }
 
 .login-icon {
-    font-size: 1rem;
-    margin-top: 4px;
+  font-size: 1rem;
+  margin-top: 4px;
 }
 
 .redirect-signup {
-    margin-top: 22px;
-    font-size: 18px;
+  margin-top: 22px;
+  font-size: 18px;
 }
 
 .text {
-    color: #00c8ff;
+  color: #00c8ff;
 }
 
 @media screen and (max-width: 768px) {
-    .app-name {
-        font-size: 12px;
-        text-align: center;
-    }
+  .app-name {
+    font-size: 12px;
+    text-align: center;
+  }
 
-    .login-subtitle {
-        font-size: 10px;
-    }
+  .login-subtitle {
+    font-size: 10px;
+  }
 
-    .redirect-signup {
-        font-size: 12px;
-        text-align: center;
-    }
-
+  .redirect-signup {
+    font-size: 12px;
+    text-align: center;
+  }
 }

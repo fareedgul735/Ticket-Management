@@ -53,9 +53,7 @@ const Dashboard = () => {
         const empSnap = await getDocs(empQuery);
         setEmployeeCount(empSnap.size);
 
-        console.log("Fetched Tickets:", ticketSnap.size);
-        console.log("Fetched Orgs:", orgSnap.size);
-        console.log("Fetched Employees:", empSnap.size);
+
       } catch (err) {
         console.error("Error fetching data:", err);
       }
@@ -145,7 +143,7 @@ const Dashboard = () => {
         }
         className={styles.sectionCard}
       >
-        <p>Total Open Tickets: 120</p>
+        <p>Total Tickets: {ticketCount}</p>
         <p>Resolved Tickets: 450</p>
         <p>Pending Tickets: 35</p>
       </Card>
@@ -169,7 +167,7 @@ const Dashboard = () => {
         }
         className={styles.sectionCard}
       >
-        <p>Total Departments: 6</p>
+        <p>Total Organizations: {orgCount}</p>
         <p>Teams: 24</p>
         <p>Locations: 3</p>
       </Card>
@@ -193,7 +191,7 @@ const Dashboard = () => {
         }
         className={styles.sectionCard}
       >
-        <p>Total Employees: 320</p>
+        <p>Total Employees: {employeeCount}</p>
         <p>Active: 300</p>
         <p>On Leave: 20</p>
       </Card>

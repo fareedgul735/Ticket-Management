@@ -34,8 +34,8 @@ const App = () => {
         fallback={
           <div
             style={{
-              width: "100%",
-              height: "100%",
+              minWidth: "100vw",
+              minHeight: "100vh",
               background: "linear-gradient(135deg, #000000, #434343)",
               display: "flex",
               justifyContent: "center",

@@ -6,8 +6,11 @@ import { Link, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { FaBuilding } from "react-icons/fa";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import loadingHOC from "../../components/LoadingHOC.jsx";
+import { useState } from "react";
 
 const OrganizationForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const userId = useSelector((state) => state.user.userId);
   const navigate = useNavigate();
 
@@ -32,6 +35,7 @@ const OrganizationForm = () => {
     try {
       const isUserConfirmed = await getUserConfirmation();
       if (isUserConfirmed) {
+        setIsLoading(true);
         await saveOrganization(data, createdBy);
         navigate("/organization");
       }
@@ -91,9 +95,14 @@ const OrganizationForm = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="none" className="submit-btn" htmlType="submit">
-              <FaBuilding /> Add Organization
-            </Button>
+            <div className="submit-btn-wrap">
+              {loadingHOC(
+                <Button type="none" className="submit-btn" htmlType="submit">
+                  <FaBuilding /> Add Organization
+                </Button>,
+                isLoading
+              )}
+            </div>
           </Form.Item>
         </Form>
       </div>

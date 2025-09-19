@@ -58,8 +58,15 @@
   min-width: 160px;
   margin-bottom: 0 !important;
 }
+.signup-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+}
 
 .signup-btn {
+  width: 100%;
   background: #00c3ff;
   color: #ffffff;
   padding: 0.8rem 1.5rem;

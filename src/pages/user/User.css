@@ -188,6 +188,12 @@ html {
   border-color: #1677ff;
   box-shadow: 0 0 5px rgba(22, 119, 255, 0.5);
 }
+.submit-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .submit-btn {
   padding: 18px 0px;

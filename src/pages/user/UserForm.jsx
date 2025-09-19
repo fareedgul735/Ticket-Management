@@ -24,8 +24,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./User.css";
+import loadingHOC from "../../components/LoadingHOC.jsx";
 
 const UserForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [organization, setOrganization] = useState([]);
@@ -58,6 +60,7 @@ const UserForm = () => {
       const createdBy = userId;
       const confirmation = await userConfirmation();
       if (confirmation) {
+        setIsLoading(true);
         const employeeId = await saveUserAndGetId(email, password);
         const userDetailsSave = await saveUserDetails(employeeId, {
           ...userDetails,
@@ -216,9 +219,14 @@ const UserForm = () => {
           </Row>
 
           <Form.Item>
-            <Button type="none" htmlType="submit" className="submit-btn">
-              <UsergroupAddOutlined /> Add Employee
-            </Button>
+            <div className="submit-btn-wrapper">
+              {loadingHOC(
+                <Button type="none" htmlType="submit" className="submit-btn">
+                  <UsergroupAddOutlined /> Add Employee
+                </Button>,
+                isLoading
+              )}
+            </div>
           </Form.Item>
         </Form>
       </div>

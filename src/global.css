@@ -4,12 +4,13 @@
   font-family: "Space Grotesk", sans-serif !important;
 }
 
-html,
 body,
 #root {
-  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0;
   display: flex;
+  background: linear-gradient(135deg, #000000, #434343) !important;
   flex-direction: column;
 }
 

@@ -6,8 +6,11 @@ import "./Login.css";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../store/slices/user";
 import { FaArrowRight } from "react-icons/fa";
+import { useState } from "react";
+import loadingHOC from "../../components/LoadingHOC";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,14 +18,13 @@ const Login = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       dispatch(loginUser({ uid: response.user.uid }));
+      setIsLoading(true);
       navigate("/dashboard");
       return response;
     } catch (err) {
       console.log(err);
       await Swal.fire({
         text: "Please Correct the Email & Password",
-        background: "#1f1f1f",
-        color: "#fff",
         position: "center",
         width: "370px",
         customClass: {
@@ -61,11 +63,15 @@ const Login = () => {
           >
             <Input.Password placeholder="••••••••" className="custom-input" />
           </Form.Item>
-
-          <Button type="none" htmlType="submit" className="login-btn">
-            <span> Login</span>
-            <FaArrowRight className="login-icon" />
-          </Button>
+          <div className="login-btn-wrapper">
+            {loadingHOC(
+              <Button type="none" htmlType="submit" className="login-btn">
+                <span>Login</span>
+                <FaArrowRight className="login-icon" />
+              </Button>,
+              isLoading
+            )}
+          </div>
         </Form>
         <div className="redirect-signup">
           Don`t have an account ?{" "}

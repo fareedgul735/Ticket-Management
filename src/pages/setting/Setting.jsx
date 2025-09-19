@@ -1,6 +1,49 @@
+import { useEffect, useState } from "react";
 import styles from "./Setting.module.css";
+import { collection, db, getDocs, or, query, where } from "../../lib/firebase";
+import { DB_COLLECTION } from "../../lib/constant";
+import { useSelector } from "react-redux";
 
 const Setting = () => {
+  const [ticketCount, setTicketCount] = useState(0);
+  const [orgCount, setOrgCount] = useState(0);
+  const [employeeCount, setEmployeeCount] = useState(0);
+
+  const userId = useSelector((state) => state.user.userId);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const ticketRef = collection(db, DB_COLLECTION.TICKETS);
+        const ticketQuery = query(
+          ticketRef,
+          or(where("userId", "==", userId), where("assignedTo", "==", userId))
+        );
+        const ticketSnap = await getDocs(ticketQuery);
+        setTicketCount(ticketSnap.size);
+
+        const orgRef = collection(db, DB_COLLECTION.ORGANIZATIONS);
+        const orgQuery = query(orgRef, where("userId", "==", userId));
+        const orgSnap = await getDocs(orgQuery);
+        setOrgCount(orgSnap.size);
+
+        const empRef = collection(db, DB_COLLECTION.USERS);
+        const empQuery = query(
+          empRef,
+          or(
+            where("createdBy", "==", userId),
+            where("assignedTo", "==", userId)
+          )
+        );
+        const empSnap = await getDocs(empQuery);
+        setEmployeeCount(empSnap.size);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    if (userId) fetchData();
+  }, [userId]);
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
@@ -17,7 +60,6 @@ const Setting = () => {
             <div className={styles.status}>Support Dashboard</div>
           </div>
         </div>
-
         <div className={styles.menu}>
           <button className={styles.menuItem} aria-pressed="true">
             Setting
@@ -29,7 +71,6 @@ const Setting = () => {
           <button className={styles.menuItem}>Tickets</button>
           <button className={styles.menuItem}>Help</button>
         </div>
-
         <div className={styles.footer}>
           <small>Ticket Management System • React + CSS Modules</small>
         </div>
@@ -50,37 +91,44 @@ const Setting = () => {
           <div className={styles.row}>
             <div>
               <div className={styles.rowTitle}>Total Tickets</div>
-              <div className={styles.rowSubtitle}>124 tickets</div>
+              <div className={styles.rowSubtitle}>{ticketCount} tickets</div>
             </div>
-            <button className={styles.linkBtn}>View All</button>
           </div>
           <div className={styles.row}>
             <div>
               <div className={styles.rowTitle}>Pending Tickets</div>
               <div className={styles.rowSubtitle}>37 pending</div>
             </div>
-            <button className={styles.linkBtn}>Review</button>
           </div>
           <div className={styles.row}>
             <div>
               <div className={styles.rowTitle}>Rejected Tickets</div>
               <div className={styles.rowSubtitle}>87 Rejected</div>
             </div>
-            <button className={styles.linkBtn}>History</button>
           </div>
           <div className={styles.row}>
             <div>
               <div className={styles.rowTitle}>In-Progress Tickets</div>
               <div className={styles.rowSubtitle}>87 In-Progress</div>
             </div>
-            <button className={styles.linkBtn}>History</button>
           </div>
           <div className={styles.row}>
             <div>
               <div className={styles.rowTitle}>Completed Tickets</div>
               <div className={styles.rowSubtitle}>87 Completed</div>
             </div>
-            <button className={styles.linkBtn}>History</button>
+          </div>
+          <div className={styles.row}>
+            <div>
+              <div className={styles.rowTitle}>Organizations</div>
+              <div className={styles.rowSubtitle}>{orgCount} </div>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <div>
+              <div className={styles.rowTitle}>Employees Tickets</div>
+              <div className={styles.rowSubtitle}>{employeeCount} </div>
+            </div>
           </div>
         </section>
 

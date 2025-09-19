@@ -150,6 +150,8 @@
   border: 1px solid #e6e6e6;
   padding: 6px 12px;
   border-radius: 8px;
+  text-decoration: none;
+  color: rgb(88, 88, 88);
   cursor: pointer;
 }
 

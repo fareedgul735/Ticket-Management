@@ -16,8 +16,10 @@ import {
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import loadingHOC from "../../components/LoadingHOC";
 
 const AddTasks = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { userId } = useSelector((state) => state.user);
   const [fetchUserData, setFetchUserData] = useState([]);
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const AddTasks = () => {
         (u) => u.value === data.assignedTo
       );
       const payload = { ...data, assignedUser, createdAt: new Date() };
+      setIsLoading(true);
       await saveUserTaskDetailed(payload, createdBy);
       navigate("/tasks");
     } catch (err) {
@@ -128,9 +131,18 @@ const AddTasks = () => {
 
             <Col sm={24}>
               <Form.Item>
-                <Button type="none" htmlType="submit" className="submit-btn">
-                  Submit
-                </Button>
+                <div className="submit-btn-wrapper">
+                  {loadingHOC(
+                    <Button
+                      type="none"
+                      htmlType="submit"
+                      className="submit-btn"
+                    >
+                      Add Tickets
+                    </Button>,
+                    isLoading
+                  )}
+                </div>
               </Form.Item>
             </Col>
           </Row>

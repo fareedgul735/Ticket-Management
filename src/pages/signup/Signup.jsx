@@ -12,7 +12,10 @@ import {
 } from "../../lib/firebase.js";
 import { DB_COLLECTION, USER_ROLES } from "../../lib/constant.jsx";
 import { FaUserPlus } from "react-icons/fa";
+import loadingHOC from "../../components/LoadingHOC.jsx";
+import { useState } from "react";
 const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const saveUserDetails = async (userDetails, adminId) => {
@@ -32,8 +35,8 @@ const Signup = () => {
       showCancelButton: true,
       confirmButtonText: "Sure",
       cancelButtonText: "Cancel",
-      background: "#000",
-      color: "#fff",
+      confirmButtonColor: "#1677ff",
+      cancelButtonColor: "#aaa",
       customClass: {
         popup: "my-custom-modal",
         confirmButton: "my-confirm-btn",
@@ -50,6 +53,7 @@ const Signup = () => {
     try {
       const isUserConfirmed = await userConfirmation();
       if (isUserConfirmed) {
+        setIsLoading(true);
         const userId = await saveUserAndGetId(email, password);
         await saveUserDetails(
           { ...userDetails, role: USER_ROLES.ADMIN },
@@ -154,9 +158,14 @@ const Signup = () => {
           >
             <Input placeholder="XXXXX-XXXXXXX-X" className="signup-input" />
           </Form.Item>
-          <Button type="none" htmlType="submit" className="signup-btn">
-            <FaUserPlus className="signup-icon" /> Signup
-          </Button>
+          <div className="signup-btn-wrapper">
+            {loadingHOC(
+              <Button type="none" htmlType="submit" className="signup-btn">
+                <FaUserPlus className="signup-icon" /> Signup
+              </Button>,
+              isLoading
+            )}
+          </div>
         </Form>
         <div className="redirect-login">
           Already have an account ? {""}
